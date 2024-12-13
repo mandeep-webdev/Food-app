@@ -22,6 +22,18 @@ export default SearchResult;
 const FoodCardsContainer = styled.section`
   background-image: url("/bg.png");
   background-size: cover;
-  height: calc(100vh - 140px);
+  min-height: calc(100vh - 140px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 `;
-const CardsContainer = styled.div``;
+const CardsContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+
+  justify-content: center;
+
+  /* border: 1px solid red; */
+  padding: 30px 0;
+`;

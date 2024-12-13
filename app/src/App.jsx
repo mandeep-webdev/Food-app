@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import styled from "styled-components";
 import SearchResult from "./components/SearchResults/SearchResult";
 
-const BASE_URL = "http://localhost:9000/";
+export const BASE_URL = "http://localhost:9000";
 
 const App = () => {
   const [foodItems, setFoodItems] = useState([]);
@@ -16,8 +16,8 @@ const App = () => {
         const data = await res.json();
         setFoodItems(data);
         setIsLoading(false);
-      } catch (error) {
-        console.log(error);
+      } catch (e) {
+        console.log(e.message);
       }
     };
     setTimeout(fetchData, 1000);
@@ -53,16 +53,16 @@ const Container = styled.div`
   margin: 0 auto;
 `;
 const TopSection = styled.section`
-  min-height: 140px;
+  min-height: 100px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px;
+  padding: 19px;
 
   .search {
     input {
       background-color: transparent;
-      border: 1px solid #ff0909;
+      border: 2px solid #d35353;
       color: white;
       border-radius: 5px;
       height: 40px;
@@ -76,9 +76,9 @@ const FilterBtnsContainer = styled.section`
   display: flex;
   gap: 12px;
   justify-content: center;
-  padding-bottom: 40px;
+  padding-bottom: 30px;
 `;
-const Button = styled.button`
+export const Button = styled.button`
   width: 96px;
   padding: 6px 12px;
   background-color: #ff4343;
