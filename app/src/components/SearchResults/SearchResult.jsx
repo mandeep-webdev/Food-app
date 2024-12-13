@@ -25,15 +25,13 @@ const FoodCardsContainer = styled.section`
   min-height: calc(100vh - 140px);
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
   overflow: hidden;
 `;
 const CardsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-
-  justify-content: center;
-
+  justify-content: center; */
   /* border: 1px solid red; */
   padding: 30px 0;
 `;

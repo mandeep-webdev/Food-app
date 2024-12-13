@@ -31,7 +31,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 150px;
+  /* min-height: 150px; */
   .food_info {
     display: flex;
     flex-direction: column;

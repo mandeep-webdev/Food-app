@@ -7,6 +7,8 @@ export const BASE_URL = "http://localhost:9000";
 
 const App = () => {
   const [foodItems, setFoodItems] = useState([]);
+  const [filteredItems, setFilteredItems] = useState([]);
+  const [query, setQuery] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -15,6 +17,7 @@ const App = () => {
         const res = await fetch(BASE_URL);
         const data = await res.json();
         setFoodItems(data);
+        setFilteredItems(data);
         setIsLoading(false);
       } catch (e) {
         console.log(e.message);
@@ -25,6 +28,18 @@ const App = () => {
     // fetchData();
   }, []);
   // console.log(foodItems);
+
+  const handleChange = (e) => {
+    setQuery(e.target.value);
+
+    const fileredData = foodItems.filter((foodItem) =>
+      foodItem.name.toLowerCase().includes(query)
+    );
+
+    setFilteredItems(fileredData);
+  };
+  console.log(query);
+  // setFilteredItems(fileredData);
   return (
     <Container>
       <TopSection>
@@ -32,7 +47,12 @@ const App = () => {
           <img src="/logo.svg" alt="logo-image" />
         </div>
         <div className="search">
-          <input type="text" placeholder="Search Food..." />
+          <input
+            type="text"
+            value={query}
+            onChange={handleChange}
+            placeholder="Search Food..."
+          />
         </div>
       </TopSection>
       <FilterBtnsContainer>
@@ -41,7 +61,7 @@ const App = () => {
         <Button>Lunch</Button>
         <Button>Dinner</Button>
       </FilterBtnsContainer>
-      <SearchResult isLoading={isLoading} data={foodItems} />
+      <SearchResult isLoading={isLoading} data={filteredItems} />
     </Container>
   );
 };
