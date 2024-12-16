@@ -6,7 +6,9 @@ const SearchResult = ({ isLoading, data }) => {
   return (
     <FoodCardsContainer>
       {isLoading ? (
-        <Spinner />
+        <SpinnerContainer>
+          <Spinner />
+        </SpinnerContainer>
       ) : (
         <CardsContainer>
           {data.map((foodItem) => (
@@ -24,14 +26,22 @@ const FoodCardsContainer = styled.section`
   background-size: cover;
   min-height: calc(100vh - 140px);
   display: flex;
-  justify-content: center;
-  align-items: center; */
   overflow: hidden;
+  flex-direction: column;
+  justify-content: flex-start;
+`;
+const SpinnerContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 `;
 const CardsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; */
-  /* border: 1px solid red; */
+  justify-content: flex-start;
+  align-items: flex-start;
   padding: 30px 0;
+  gap: 16px;
+  margin-left: 40px;
 `;

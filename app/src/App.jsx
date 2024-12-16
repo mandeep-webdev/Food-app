@@ -8,7 +8,7 @@ export const BASE_URL = "http://localhost:9000";
 const App = () => {
   const [foodItems, setFoodItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
-  const [query, setQuery] = useState("");
+  const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -30,15 +30,16 @@ const App = () => {
   // console.log(foodItems);
 
   const handleChange = (e) => {
-    setQuery(e.target.value);
+    setInput(e.target.value);
 
     const fileredData = foodItems.filter((foodItem) =>
-      foodItem.name.toLowerCase().includes(query)
+      foodItem.name.toLowerCase().includes(e.target.value.toLowerCase())
     );
 
     setFilteredItems(fileredData);
+    // setInput("");
   };
-  console.log(query);
+  //console.log(query);
   // setFilteredItems(fileredData);
   return (
     <Container>
@@ -49,7 +50,7 @@ const App = () => {
         <div className="search">
           <input
             type="text"
-            value={query}
+            value={input}
             onChange={handleChange}
             placeholder="Search Food..."
           />
@@ -88,6 +89,9 @@ const TopSection = styled.section`
       height: 40px;
       font-size: 16px;
       padding: 0 10px;
+      &:focus {
+        outline: none; /* Removes the focus color/outline */
+      }
     }
   }
 `;
