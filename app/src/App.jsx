@@ -4,12 +4,31 @@ import styled from "styled-components";
 import SearchResult from "./components/SearchResults/SearchResult";
 
 export const BASE_URL = "http://localhost:9000";
+const filterBtns = [
+  {
+    name: "All",
+    type: "all",
+  },
+  {
+    name: "Breakfast",
+    type: "breakfast",
+  },
 
+  {
+    name: "Lunch",
+    type: "lunch",
+  },
+  {
+    name: "Dinner",
+    type: "dinner",
+  },
+];
 const App = () => {
   const [foodItems, setFoodItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [btnType, setBtnType] = useState("all");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,6 +58,22 @@ const App = () => {
     setFilteredItems(fileredData);
     // setInput("");
   };
+
+  const handleFilterBtnClick = (type) => {
+    if (type === "all") {
+      setFilteredItems(foodItems);
+      setBtnType("all");
+    } else if (type === "breakfast") {
+      setFilteredItems(foodItems.filter((food) => food.type === "breakfast"));
+      setBtnType("breakfast");
+    } else if (type === "lunch") {
+      setFilteredItems(foodItems.filter((food) => food.type === "lunch"));
+      setBtnType("lunch");
+    } else {
+      setFilteredItems(foodItems.filter((food) => food.type === "dinner"));
+      setBtnType("dinner");
+    }
+  };
   //console.log(query);
   // setFilteredItems(fileredData);
   return (
@@ -57,10 +92,19 @@ const App = () => {
         </div>
       </TopSection>
       <FilterBtnsContainer>
-        <Button>All</Button>
-        <Button>Breakfast</Button>
-        <Button>Lunch</Button>
-        <Button>Dinner</Button>
+        {filterBtns.map((btn) => (
+          <Button
+            key={btn.name}
+            isActive={btnType === btn.type}
+            onClick={() => handleFilterBtnClick(btn.type)}
+          >
+            {btn.name}
+          </Button>
+        ))}
+        {/* <Button onClick={() => filterBtn("all")}>All</Button>
+        <Button onClick={() => filterBtn("breakfast")}>Breakfast</Button>
+        <Button onClick={() => filterBtn("lunch")}>Lunch</Button>
+        <Button onClick={() => filterBtn("dinner")}>Dinner</Button> */}
       </FilterBtnsContainer>
       <SearchResult isLoading={isLoading} data={filteredItems} />
     </Container>
@@ -83,14 +127,14 @@ const TopSection = styled.section`
   .search {
     input {
       background-color: transparent;
-      border: 2px solid #d35353;
+      border: 2px solid #ff4500;
       color: white;
       border-radius: 5px;
       height: 40px;
       font-size: 16px;
       padding: 0 10px;
       &:focus {
-        outline: none; /* Removes the focus color/outline */
+        outline: none;
       }
     }
   }
@@ -105,8 +149,16 @@ const FilterBtnsContainer = styled.section`
 export const Button = styled.button`
   width: 96px;
   padding: 6px 12px;
-  background-color: #ff4343;
-  color: white;
+  background-color: ${({ isActive }) => (isActive ? "#FFFFFF" : "#FF6347")};
+  color: ${({ isActive }) => (isActive ? "#FF6347" : "#FFFFFF")};
   border-radius: 5px;
   border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+
+  &:hover {
+    background-color: ${({ isActive }) => (isActive ? "#FFFFFF" : "#FF4500")};
+    //background-color: #e43636;
+  }
 `;
